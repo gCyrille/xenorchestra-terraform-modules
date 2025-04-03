@@ -30,12 +30,13 @@ module "xo_wait_for_vm_ip" {
 ## Example
 
 ```hcl
-module "xo_wait_for_vm_ip" {
-    source = "../modules/xo-tf-modules/modules/xo-wait-for-xenstore"
+module "xo_wait_for_xenstore" {
+    source = "../modules/xo-tf-modules/modules/xo-wait-for-vm-ip"
     vm_id       = "f39ea59d-5073-dd4c-6c8e-64f0ee2d7b96"
     xo_url      = "xo-example.com"
     xo_token = "a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6"
-    depends_on = [xenorchestra_vm.vm]
+    xenstore_key = "vm-data/cloudinit-complete"
+    xenstore_value = "true"
+    depends_on = [ module.xo_wait_for_vm_ip ]
 }
-
 ```
